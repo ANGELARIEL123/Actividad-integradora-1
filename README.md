@@ -47,3 +47,8 @@ Desarrollado por Angel como parte de la Actividad Integradora 1.
 Este proyecto es de uso educativo y no tiene una licencia específica.
 git add README.md
 git commit -m "Merge: integrar README inicial de GitHub con versión local"
+
+**Declaración**  
+
+Declaro que utilicé Inteligencia Artificial como apoyo para comprender partes del proyecto.  
+El código fue adaptado, modificado y entendido por mí.
