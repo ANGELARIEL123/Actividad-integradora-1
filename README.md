@@ -45,8 +45,6 @@ Desarrollado por Angel como parte de la Actividad Integradora 1.
 ## Licencia
 
 Este proyecto es de uso educativo y no tiene una licencia específica.
-git add README.md
-git commit -m "Merge: integrar README inicial de GitHub con versión local"
 
 **Declaración**  
 
