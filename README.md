@@ -1,36 +1,49 @@
-# Lista de Supermercado - Angel
+# Lista de Supermercado
+
+Una aplicación web simple para gestionar una lista de compras, desarrollada como parte de la Actividad Integradora 1.
 
 ## Descripción
-Esta es una aplicación web simple para gestionar una lista de compras de supermercado. Permite agregar productos con nombre y cantidad, marcarlos como comprados y eliminarlos. Los datos se guardan automáticamente en el almacenamiento local del navegador.
+
+Esta aplicación permite a los usuarios crear y gestionar una lista de productos para el supermercado. Incluye funcionalidades para agregar productos con nombre y cantidad, marcarlos como comprados, eliminarlos y visualizar contadores de productos totales, comprados y pendientes. Los datos se almacenan localmente en el navegador usando localStorage.
 
 ## Características
-- **Agregar productos**: Formulario para ingresar nombre y cantidad de productos.
-- **Marcar como comprado**: Botón para marcar productos como comprados o desmarcarlos.
-- **Eliminar productos**: Opción para eliminar productos de la lista.
-- **Contadores**: Muestra el total de productos, productos comprados y productos pendientes.
-- **Almacenamiento local**: Los datos se persisten en el navegador usando localStorage.
-- **Diseño responsivo**: Interfaz adaptada para diferentes tamaños de pantalla.
-- **Tema morado**: Estilo visual coherente con colores morados.
 
-## Tecnologías utilizadas
-- **HTML5**: Estructura de la página.
-- **CSS3**: Estilos y diseño visual.
-- **JavaScript**: Lógica de la aplicación y manipulación del DOM.
+- **Agregar productos**: Ingresa el nombre del producto y la cantidad deseada.
+- **Marcar como comprado**: Cambia el estado de un producto entre pendiente y comprado.
+- **Eliminar productos**: Remueve productos de la lista.
+- **Contadores**: Muestra el total de productos, los comprados y los pendientes.
+- **Persistencia**: Los datos se guardan automáticamente en el navegador y se cargan al recargar la página.
+- **Interfaz responsiva**: Diseñada con un tema morado y adaptable a diferentes tamaños de pantalla.
 
 ## Cómo usar
-1. Abre el archivo `index.html` en un navegador web.
-2. Ingresa el nombre del producto en el campo correspondiente.
-3. Ingresa la cantidad deseada.
-4. Haz clic en "Agregar" para añadir el producto a la lista.
-5. Para marcar un producto como comprado, haz clic en el botón "Comprado".
-6. Para eliminar un producto, haz clic en el botón "Eliminar".
-7. Los contadores se actualizan automáticamente.
 
-## Estructura del proyecto
-- `index.html`: Archivo principal que contiene la estructura HTML, estilos CSS y código JavaScript.
+1. Descarga o clona el repositorio.
+2. Abre el archivo `index.html` en tu navegador web preferido (como Chrome, Firefox, etc.).
+3. En la sección de formulario:
+   - Ingresa el nombre del producto en el campo "Nombre del producto".
+   - Ingresa la cantidad en el campo "Cantidad".
+   - Haz clic en "Agregar" para añadir el producto a la lista.
+4. En la lista de productos:
+   - Haz clic en "Comprado" para marcar o desmarcar un producto como comprado.
+   - Haz clic en "Eliminar" para quitar un producto de la lista.
+5. Los contadores en la parte inferior se actualizan automáticamente.
+
+## Tecnologías utilizadas
+
+- **HTML**: Estructura de la página.
+- **CSS**: Estilos y diseño con tema morado.
+- **JavaScript**: Lógica de la aplicación, manejo de eventos y almacenamiento local.
+
+## Requisitos
+
+- Un navegador web moderno que soporte JavaScript y localStorage.
 
 ## Autor
-Angel
 
-## Actividad
-Actividad Integradora 1 - Lista de Supermercado
+Desarrollado por Angel como parte de la Actividad Integradora 1.
+
+## Licencia
+
+Este proyecto es de uso educativo y no tiene una licencia específica.
+git add README.md
+git commit -m "Merge: integrar README inicial de GitHub con versión local"
