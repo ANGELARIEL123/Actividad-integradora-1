@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Supermercado - Angel</title>
+    <style>
+        /* === Estilos CSS - Tema Morado === */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e8ff; /* fondo muy suave morado */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #7C3AED; /* morado principal */
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        main {
+            max-width: 800px;
+            width: 90%;
+            padding: 1em;
+        }
+
+        #form-section {
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+            margin-bottom: 2em;
+            border: 1px solid #e0d4ff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8em;
+        }
+
+        label {
+            font-weight: bold;
+            color: #5B21B6;
+        }
+
+        input {
+            padding: 0.6em;
+            border: 1px solid #d1b9ff;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+
+        input:focus {
+            border-color: #7C3AED;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+        }
+
+        button {
+            background-color: #7C3AED;
+            color: white;
+            border: none;
+            padding: 0.8em;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #6D28D9;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 0.9em;
+            min-height: 1.2em;
+        }
+
+        #product-list-section {
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+            border: 1px solid #e0d4ff;
+        }
+
+        #product-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1em;
+        }
+
+        .product-item {
+            background-color: #fff;
+            border: 1px solid #d1b9ff;
+            padding: 1em;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(124, 58, 237, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6em;
+        }
+
+        .product-item.bought {
+            text-decoration: line-through;
+            opacity: 0.75;
+            background-color: #ede9fe; /* morado muy suave para comprado */
+            border-color: #c4b5fd;
+        }
+
+        .product-item button {
+            padding: 0.5em;
+            font-size: 0.9em;
+        }
+
+        .buy-btn {
+            background-color: #A78BFA; /* morado claro para "Comprado" */
+        }
+
+        .buy-btn:hover {
+            background-color: #9F7AEA;
+        }
+
+        .delete-btn {
+            background-color: #EF4444;
+        }
+
+        .delete-btn:hover {
+            background-color: #DC2626;
+        }
+
+        #counters {
+            margin: 2em 0;
+            text-align: center;
+            font-size: 1.1em;
+            color: #4c1d95;
+        }
+
+        #counters p {
+            margin: 0.4em 0;
+        }
+
+        footer {
+            background-color: #7C3AED;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 0.8em 0;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Lista de Supermercado - Angel</h1>
+    </header>
+
+    <main>
+        <section id="form-section">
+            <form id="product-form">
+                <label for="product-name">Nombre del producto:</label>
+                <input type="text" id="product-name" required autocomplete="off">
+
+                <label for="product-quantity">Cantidad:</label>
+                <input type="number" id="product-quantity" min="1" required>
+
+                <button type="submit">Agregar</button>
+            </form>
+            <div id="error-message" class="error"></div>
+        </section>
+
+        <section id="product-list-section">
+            <h2>Lista de Productos</h2>
+            <ul id="product-list"></ul>
+        </section>
+
+        <section id="counters">
+            <p>Total de productos: <strong id="total-count">0</strong></p>
+            <p>Productos comprados: <strong id="bought-count">0</strong></p>
+            <p>Productos pendientes: <strong id="pending-count">0</strong></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Actividad Integradora 1 - Lista de Supermercado (por Angel)</p>
+    </footer>
+
+    <script>
+        // === JavaScript ===
+        let products = [];
+
+        const form = document.getElementById('product-form');
+        const nameInput = document.getElementById('product-name');
+        const quantityInput = document.getElementById('product-quantity');
+        const errorDiv = document.getElementById('error-message');
+        const list = document.getElementById('product-list');
+        const totalEl = document.getElementById('total-count');
+        const boughtEl = document.getElementById('bought-count');
+        const pendingEl = document.getElementById('pending-count');
+
+        function loadProducts() {
+            const data = localStorage.getItem('supermercado-lista-angel');
+            if (data) {
+                products = JSON.parse(data);
+                render();
+                updateCounters();
+            }
+        }
+
+        function saveProducts() {
+            localStorage.setItem('supermercado-lista-angel', JSON.stringify(products));
+        }
+
+        function render() {
+            list.innerHTML = '';
+            products.forEach((prod, i) => {
+                const li = document.createElement('li');
+                li.className = 'product-item' + (prod.bought ? ' bought' : '');
+
+                li.innerHTML = `
+                    <div>${prod.name} × ${prod.quantity}</div>
+                    <button class="buy-btn">${prod.bought ? 'Desmarcar' : 'Comprado'}</button>
+                    <button class="delete-btn">Eliminar</button>
+                `;
+
+                li.querySelector('.buy-btn').onclick = () => {
+                    products[i].bought = !products[i].bought;
+                    saveProducts();
+                    render();
+                    updateCounters();
+                };
+
+                li.querySelector('.delete-btn').onclick = () => {
+                    products.splice(i, 1);
+                    saveProducts();
+                    render();
+                    updateCounters();
+                };
+
+                list.appendChild(li);
+            });
+        }
+
+        function updateCounters() {
+            const total = products.length;
+            const bought = products.filter(p => p.bought).length;
+            totalEl.textContent = total;
+            boughtEl.textContent = bought;
+            pendingEl.textContent = total - bought;
+        }
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const name = nameInput.value.trim();
+            const qty = parseInt(quantityInput.value);
+
+            if (!name) {
+                errorDiv.textContent = 'Ingresa el nombre del producto';
+                return;
+            }
+            if (isNaN(qty) || qty < 1) {
+                errorDiv.textContent = 'Cantidad debe ser mayor a 0';
+                return;
+            }
+
+            products.push({ name, quantity: qty, bought: false });
+            saveProducts();
+            render();
+            updateCounters();
+
+            nameInput.value = '';
+            quantityInput.value = '';
+            errorDiv.textContent = '';
+        });
+
+        loadProducts();
+    </script>
+
+</body>
+</html>
